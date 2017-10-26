@@ -100,13 +100,22 @@ public class TicketMachine
     }
 
     /**
-     * Vacía la maquina de todas las monedas que hay en ella
+     * Vacía la maquina en caso de que no esté operando.
      */
     public int emptyMachine()
     {
-            int vaciarMaquina;
-            vaciarMaquina = total;
+        int status;
+        status = 0;
+        if(balance == 0) {
+            int vueltaDinero;
+            vueltaDinero = balance + total;
             total = 0;
-            return total;
+            status = vueltaDinero;
         }
+        else {
+            System.out.println("Operación iniciada");
+            status = -1;
+        }
+        return status;
+    }
 }
