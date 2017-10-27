@@ -19,15 +19,18 @@ public class TicketMachine
     private int total;
     // Máquina con premio
     private boolean maquinaPremiada;
+    // Billete
+    private int billete;
 
     /**
      * Create a machine that issues tickets of the given price.
      */
-    public TicketMachine(int cost, boolean maquinaPremio)
+    public TicketMachine(int cost, boolean maquinaPremio, int numeroBillete)
     {
             price = cost;
             balance = 0;
             total = 0;
+            billete = numeroBillete;
             maquinaPremiada = maquinaPremio;
     }
 
@@ -54,11 +57,14 @@ public class TicketMachine
      */
     public void insertMoney(int amount)
     {
-        if(amount > 0) {
-            balance = balance + amount;
+        if(amount < 0 & amount > 0) {
+            System.out.println("Use a positive amount rather than: " +amount);balance = balance + amount;
+        }
+        else if(billete == 0)  {
+            System.out.println("Error número de billetes máximo vendido");
         }
         else {
-            System.out.println("Use a positive amount rather than: " +amount);
+            balance = balance + amount;
         }
     }
 
@@ -94,7 +100,9 @@ public class TicketMachine
             // Update the total collected with the price.
             total = total + price;
             // Reduce the balance by the prince.
-            balance = balance - price; 
+            balance = balance - price;
+            
+            billete = billete -1;
         }
         else if(balance >= price & maquinaPremiada == false) {
             // Simulate the printing of a ticket.
@@ -109,6 +117,8 @@ public class TicketMachine
             total = total + price;
             // Reduce the balance by the prince.
             balance = balance - price;
+            
+            billete = billete -1;
         }
         else {
             System.out.println("You must insert at least: " +
